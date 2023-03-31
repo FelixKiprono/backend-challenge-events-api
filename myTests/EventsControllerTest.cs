@@ -19,7 +19,8 @@ public class EventsControllerTest
         this.databaseFixture.Dispose();
     }
 
-    public async Task CreateIfTheNameIsNotExisted()
+    [TestMethod]
+    public void GetAllEvents()
     {
         using var context = this.databaseFixture.CreateContext();
 

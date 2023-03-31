@@ -17,14 +17,12 @@ namespace demoapp.Controllers
     public class EventController : ControllerBase
     {
         private readonly EventDBContenxt _context;
-        private readonly HttpClient _client;
         private readonly UserService _userService;
 
         public EventController(EventDBContenxt context)
         {
-            _context = context;
+            _context =  context;
             _userService = new UserService();
-            _client = new HttpClient();
 
         }
 

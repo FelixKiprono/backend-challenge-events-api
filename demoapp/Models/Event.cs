@@ -15,7 +15,6 @@ namespace demoapp.Models
 
         public string? Description { get; set; }
 
-
         public User? User { get; set; }
 
 
