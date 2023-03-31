@@ -1,0 +1,53 @@
+﻿<Properties StartupConfiguration="{3CE35FF6-9B8D-47C2-8C90-4DDBFFB5EA7D}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="demoapp/Controllers/AttendingController.cs">
+    <Files>
+      <File FileName="demoapp/Program.cs" Line="32" Column="1" />
+      <File FileName="demoapp/appsettings.json" />
+      <File FileName="demoapp/appsettings.Development.json" />
+      <File FileName="demoapp/Models/Event.cs" Line="19" Column="23" />
+      <File FileName="demoapp/Data/EventDBContenxt.cs" Line="15" Column="46" />
+      <File FileName="demoapp/Controllers/EventController.cs" Line="97" Column="63" />
+      <File FileName="myTests/EventsControllerTest.cs" Line="28" Column="34" />
+      <File FileName="demoapp/Controllers/AttendingController.cs" Line="82" Column="21" />
+      <File FileName="demoapp/Services/UserService.cs" Line="32" Column="46" />
+      <File FileName="demoapp/Models/User.cs" Line="29" Column="27" />
+      <File FileName="demoapp/Models/Attending.cs" Line="11" Column="33" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="demoapp" expanded="True">
+            <Node name="demoapp" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="AttendingController.cs" selected="True" />
+              </Node>
+              <Node name="Data" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+            <Node name="myTests" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="ProjectDependencies" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="demoapp" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.demoapp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
