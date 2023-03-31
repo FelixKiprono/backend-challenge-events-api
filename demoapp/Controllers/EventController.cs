@@ -26,28 +26,47 @@ namespace demoapp.Controllers
 
         }
 
-        // GET: api/Event
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Event>>> GetEvent()
+        // GET: api/Events
+        [HttpGet("All/{page:int} {resultsPerPage:float}")]
+        public async Task<ActionResult<IEnumerable<Event>>> GetEvents(int page,float resultsPerPage)
         {
           if (_context.Event == null)
           {
               return NotFound();
           }
-            return await _context.Event.ToListAsync();
+            var itemsPerPage = (float)resultsPerPage;
+            //fetch all events
+            var events = await _context.Event
+             .ToListAsync();
+            //paginated
+           var paginatedEvents =  events
+                .Skip((page - 1) * (int)itemsPerPage)
+                .Take((int)itemsPerPage);
+
+            var pageCount = Math.Ceiling(events.Count() / itemsPerPage);
+
+            //custom resonse to include page metadata 
+            var response =  new
+            {
+                Events = paginatedEvents,
+                CurrentPage = page,
+                TotalPages = (int)pageCount
+
+            };
+            return Ok(response);
         }
 
 
-        // GET: api/Event/5
+        //// GET: api/Event/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
             User user = await this._userService.GetUser(1);
             Console.Write(user);
             if (_context.Event == null)
-              {
-                  return NotFound();
-              }
+            {
+                return NotFound();
+            }
             var @event = await _context.Event.FindAsync(id);
 
             if (@event == null)
@@ -55,8 +74,9 @@ namespace demoapp.Controllers
                 return NotFound();
             }
             //attach user information to the response
-            return new Event { Id=@event.Id,Title=@event.Title,Description=@event.Description,StartDate=@event.StartDate,EndDate=@event.EndDate,TimeZone=@event.TimeZone,User= user };
+            return new Event { Id = @event.Id, Title = @event.Title, Description = @event.Description, StartDate = @event.StartDate, EndDate = @event.EndDate, TimeZone = @event.TimeZone, User = user };
         }
+        
 
         // PUT: api/Event/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

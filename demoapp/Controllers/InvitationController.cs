@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using demoapp.Models;
 using demoapp.Services;
+using System.Net;
 
 namespace demoapp.Controllers
 {
@@ -23,9 +24,9 @@ namespace demoapp.Controllers
             _userService = new UserService();
 
         }
-       
+
         // GET: api/Invitation/5
-        [HttpGet("{id}")]
+        [HttpGet("User/{id}")]
         public async Task<ActionResult<dynamic>> GetEvent(int id)
         {
             User user = await this._userService.GetUser(id);
@@ -62,7 +63,7 @@ namespace demoapp.Controllers
         // PUT: api/AcceptInvitation/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 
-        [HttpPost("{invitationId} {userId} {eventId} ")]
+        [HttpPost("Accept/{invitationId} {userId} {eventId} ")]
         public async Task<IActionResult> PutAttending(int invitationId,int userId, int eventId)
         {
             var invites = await _context.Attending.Where(att => att.EventId == eventId && att.UserId == userId && att.Id==invitationId).FirstOrDefaultAsync();
@@ -94,23 +95,23 @@ namespace demoapp.Controllers
 
         // POST: api/SendInvitation
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult> PostAttending(List<int> userids,int eventid)
+        [HttpPost("Send/{eventId} {userIds}")]
+        public async Task<ActionResult> PostAttending(int eventId, List<int> userIds)
         {
           if (_context.Attending == null)
           {
               return Problem("Entity set 'EventDBContenxt.Attending'  is null.");
           }
-            if (!this.EventExist(eventid))
+            if (!this.EventExist(eventId))
             {
                 return Problem("Entity set 'EventDBContenxt.Event'  is null or not available.");
             }
 
-            foreach (int id in userids)
+            foreach (int id in userIds)
             {
                 var invite = new Attending()
                 {
-                     EventId = eventid,
+                     EventId = eventId,
                      UserId = id,
                      IsAttending= false
 
