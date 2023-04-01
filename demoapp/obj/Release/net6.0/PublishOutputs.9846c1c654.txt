@@ -64,6 +64,7 @@
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/NuGet.ProjectModel.dll
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/NuGet.Protocol.dll
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/NuGet.Versioning.dll
+/Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/RestSharp.dll
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/SQLitePCLRaw.batteries_v2.dll
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/SQLitePCLRaw.core.dll
 /Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/publish/SQLitePCLRaw.provider.e_sqlite3.dll

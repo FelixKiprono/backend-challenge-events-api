@@ -288,3 +288,4 @@
 /Users/felixkiprono/Projects/demoapp/demoapp/obj/Release/net6.0/demoapp.pdb
 /Users/felixkiprono/Projects/demoapp/demoapp/obj/Release/net6.0/demoapp.genruntimeconfig.cache
 /Users/felixkiprono/Projects/demoapp/demoapp/obj/Release/net6.0/ref/demoapp.dll
+/Users/felixkiprono/Projects/demoapp/demoapp/bin/Release/net6.0/RestSharp.dll

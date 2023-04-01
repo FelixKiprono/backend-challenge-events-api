@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		Dockerfile = Dockerfile
+		Events API architecture.jpg = Events API architecture.jpg
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demoappTests", "demoappTests\demoappTests.csproj", "{F11F8169-5102-49A8-99C6-08B4C5686A24}"

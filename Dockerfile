@@ -5,9 +5,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 
 # Copy the published output of the ASP.NET API project to the working directory
-COPY ./bin/Release/net6.0/publish .
+COPY ./demoapp/bin/Release/net6.0/publish .
 
-COPY ./events.db /app/
+COPY ./demoapp/events.db /app/
 
 # Install the SQLite package
 RUN apt-get update && \

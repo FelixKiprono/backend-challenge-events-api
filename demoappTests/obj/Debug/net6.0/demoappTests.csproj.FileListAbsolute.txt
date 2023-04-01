@@ -1,9 +1,4 @@
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/CoverletSourceRootsMapping
-/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.csproj.AssemblyReference.cache
-/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.GeneratedMSBuildEditorConfig.editorconfig
-/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.AssemblyInfoInputs.cache
-/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.AssemblyInfo.cs
-/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.csproj.CoreCompileInputs.cache
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/demoapp.deps.json
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/demoapp.runtimeconfig.json
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/appsettings.Development.json
@@ -368,6 +363,11 @@
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/demoapp.dll
 /Users/felixkiprono/Projects/demoapp/demoappTests/bin/Debug/net6.0/demoapp.pdb
+/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.csproj.AssemblyReference.cache
+/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.GeneratedMSBuildEditorConfig.editorconfig
+/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.AssemblyInfoInputs.cache
+/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.AssemblyInfo.cs
+/Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.csproj.CoreCompileInputs.cache
 /Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.csproj.CopyComplete
 /Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/demoappTests.dll
 /Users/felixkiprono/Projects/demoapp/demoappTests/obj/Debug/net6.0/refint/demoappTests.dll
