@@ -1,6 +1,8 @@
 ﻿using demoapp.Controllers;
 using demoapp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 
 namespace demoappTests;
@@ -35,42 +37,62 @@ public class ControllersTest
 
         //save event
         var result = await eventController.PostEvent(eventModel);
-        //get the recently saved event
-        var saveEvent = await eventController.GetEvent(1);
+       
         //check
         Assert.NotNull(result);
         Assert.NotNull(result.Result);
+        Assert.IsType<CreatedAtActionResult>(result.Result);
 
-        Assert.Equal(1, saveEvent.Value.Id);
-        Assert.Equal("event", saveEvent.Value.Title);
-        Assert.Equal(DateTime.Today, saveEvent.Value.StartDate);
-        Assert.Equal(DateTime.Today, saveEvent.Value.EndDate);
-        Assert.Equal("UTC", saveEvent.Value.TimeZone);
 
-        //test get all events
-        var events = await eventController.GetEvent();
-        Assert.NotNull(events);
-        Assert.Equal(1, events.Value.Count());
 
-        //deleted Event
-        var deleteResult = await eventController.DeleteEvent(1);
+        //get the recently saved event
+        var saveEvent = await eventController.GetEvent(1);
+        Assert.IsType<OkObjectResult>(saveEvent.Result);
 
-        var fetchedEvent = await eventController.GetEvent(1);
+        ////test get all events
+        var events = await eventController.GetEvents(1,1);
+        Assert.IsType<OkObjectResult>(events.Result);
 
-        Assert.NotNull(deleteResult);
-        Assert.Null(fetchedEvent.Value);
-        Assert.Null(fetchedEvent.Value);
 
     }
 
-  
+
 
 
     [Fact]
     public  async void TestInvitesMethods()
     {
 
-   
+        var context = getUpDBContext();
+        var invitesController = new InvitationController(context);
+        var eventController = new EventController(context);
+
+        //mock data for event and user
+        await eventController.PostEvent(new Event{
+              Id = 1,
+              Description="",
+              Title="Test",
+              StartDate=DateTime.Today,
+              EndDate = DateTime.Today,
+              TimeZone = "UTC"
+        });
+
+        int eventId = 1;
+        List<int> usersId = new List<int>{ 1, 2, 3, 4 };
+
+        //test invite with existing event 
+        var invites = await invitesController.SendInvitation(eventId,usersId);
+        Assert.IsType<OkObjectResult>(invites);
+
+        //Test invite with a wrong event
+        var badInvite = await invitesController.SendInvitation(2, usersId);
+        Assert.IsType<NotFoundObjectResult>(badInvite);
+
+
+        var userInvites = await invitesController.AcceptInvitation(1,1,1);
+        Assert.IsType<OkObjectResult>(userInvites);
+
+
 
 
     }

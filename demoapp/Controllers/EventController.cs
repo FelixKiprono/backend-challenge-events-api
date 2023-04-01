@@ -9,6 +9,7 @@ using demoapp.Models;
 using System.Net.Http;
 using demoapp.Services;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace demoapp.Controllers
 {
@@ -50,7 +51,10 @@ namespace demoapp.Controllers
             {
                 Events = paginatedEvents,
                 CurrentPage = page,
-                TotalPages = (int)pageCount
+                TotalPages = (int)pageCount,
+                Message = "Success",
+                Error = "",
+
 
             };
             return Ok(response);
@@ -74,7 +78,15 @@ namespace demoapp.Controllers
                 return NotFound();
             }
             //attach user information to the response
-            return new Event { Id = @event.Id, Title = @event.Title, Description = @event.Description, StartDate = @event.StartDate, EndDate = @event.EndDate, TimeZone = @event.TimeZone, User = user };
+            var customEvent =  new Event { Id = @event.Id, Title = @event.Title, Description = @event.Description, StartDate = @event.StartDate, EndDate = @event.EndDate, TimeZone = @event.TimeZone, User = user };
+
+            var response = new
+            {
+                Data = customEvent,
+                Message = "Success",
+                Error = "",
+            };
+            return Ok(response);
         }
         
 
@@ -105,8 +117,14 @@ namespace demoapp.Controllers
                     throw;
                 }
             }
+            var response = new
+            {
+                Data = @event,
+                Message = "Success",
+                Error = "",
 
-            return NoContent();
+            };
+            return Ok(response);
         }
 
         // POST: api/Event
@@ -132,6 +150,21 @@ namespace demoapp.Controllers
             {
                 return NotFound();
             }
+            //
+            var usedEvents = await _context.Attending.Where(item=>item.EventId==id).ToListAsync();
+            if (usedEvents.Count>0)
+            {
+                var result = new
+                {
+                    Data = usedEvents,
+                    Message = "Cant Delete Event,its active on Attendance!",
+                    Error = "",
+
+                };
+                return Ok(result);
+
+            }
+
             var @event = await _context.Event.FindAsync(id);
             if (@event == null)
             {
@@ -141,7 +174,14 @@ namespace demoapp.Controllers
             _context.Event.Remove(@event);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            var response = new
+            {
+                Data = "",
+                Message = "Success",
+                Error = "",
+
+            };
+            return Ok(response);
         }
 
         private bool EventExists(int id)

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using demoapp.Models;
 using demoapp.Services;
 using System.Net;
+using System.ComponentModel;
 
 namespace demoapp.Controllers
 {
@@ -27,7 +28,7 @@ namespace demoapp.Controllers
 
         // GET: api/Invitation/5
         [HttpGet("User/{id}")]
-        public async Task<ActionResult<dynamic>> GetEvent(int id)
+        public async Task<ActionResult<dynamic>> GetUserInvitation(int id)
         {
             User user = await this._userService.GetUser(id);
             if (_context.Attending == null)
@@ -41,36 +42,47 @@ namespace demoapp.Controllers
                                where invites.UserId == id && invites.IsAttending == false
                                select new
                                {
+                                   Id = invites.Id,
                                    Title = events.Title,
+                                   IsAttending = invites.IsAttending,
+                                   Notes = invites.Notes,
+                                   TimeStamp = invites.TimeStamp,
+                                   EventsId = events.Id,
                                    Description = events.Description,
                                    StartDate = events.StartDate,
                                    EndDate = events.EndDate,
                                    TimeZone = events.TimeZone,
-                                   IsAttending = invites.IsAttending,
-                                   TimeStamp = invites.TimeStamp,
                                    User = user,
 
                                }).ToList();
 
-            var @event = await _context.Event.FindAsync(id);
-
-            if (@event == null)
+            var response = new
             {
-                return NotFound();
-            }
-            return invitations;
+                Data = invitations,
+                Message = invitations.Count>0? "Success" : "No Invites Currently",
+                Error = "",
+
+            };
+            return Ok(response);
         }
-        // PUT: api/AcceptInvitation/5
+        // PUT: api/Accept/{invitationId} {userId} {eventId}
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 
-        [HttpPost("Accept/{invitationId} {userId} {eventId} ")]
-        public async Task<IActionResult> PutAttending(int invitationId,int userId, int eventId)
+        [HttpPost("Accept/")]
+        public async Task<IActionResult> AcceptInvitation(int invitationId,int userId, int eventId)
         {
             var invites = await _context.Attending.Where(att => att.EventId == eventId && att.UserId == userId && att.Id==invitationId).FirstOrDefaultAsync();
 
             if (invites == null)
             {
-                return NotFound();
+                var res = new
+                {
+                    Data = invites,
+                    Message = "No Invitation Found with those Parameters!",
+                    Error = "",
+
+                };
+                return NotFound(res);
             }
 
             try
@@ -90,13 +102,21 @@ namespace demoapp.Controllers
                 }
             }
 
-            return NoContent();
+            var response = new
+            {
+                Data = invites,
+                Message = "Successfuly Accepted attendance!",
+                Error = "",
+
+            };
+            return Ok(response);
+
         }
 
         // POST: api/SendInvitation
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Send/{eventId} {userIds}")]
-        public async Task<ActionResult> PostAttending(int eventId, List<int> userIds)
+        public async Task<ActionResult> SendInvitation(int eventId, List<int> userIds)
         {
           if (_context.Attending == null)
           {
@@ -104,28 +124,39 @@ namespace demoapp.Controllers
           }
             if (!this.EventExist(eventId))
             {
-                return Problem("Entity set 'EventDBContenxt.Event'  is null or not available.");
+                return NotFound("Entity set 'EventDBContenxt.Event'  is null or not available.");
             }
-
+         
+            var invitations = new List<Attending>();
             foreach (int id in userIds)
             {
-                var invite = new Attending()
+                if (!AttendingExistsByUserIdAndEventId(eventId, id))
                 {
-                     EventId = eventId,
-                     UserId = id,
-                     IsAttending= false
-
-
-                };
-                _context.Attending.Add(invite);
+                    invitations.Add(
+                     new Attending()
+                     {
+                         EventId = eventId,
+                         UserId = id,
+                         IsAttending = false
+                     });
+                }
             }
-          
+            _context.Attending.AddRange(invitations);
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            var response = new
+            {
+                Data = invitations,
+                Message = "Successfuly Sent attendance!",
+                Error = "",
+
+            };
+            return Ok(response);
         }
 
-       
+      
+
         private bool AttendingExistsByUserIdAndEventId(int id, int userId)
         {
             return (_context.Attending?.Any(e => e.Id == id && e.UserId == userId)).GetValueOrDefault();
