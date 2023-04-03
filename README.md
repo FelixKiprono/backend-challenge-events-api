@@ -1,5 +1,4 @@
 ﻿Events API
-#############################
 
 Models
 
@@ -127,7 +126,7 @@ Docker
 how to build docker image
  - run this command
 
- 1. docker build . -t eventsapi/v1 
+ 1. docker build -t . eventsapi/v1 
  2. docker run -p {PORT}:80 --name eventsapi eventsapi
  3. Open browser and put http://localhost:{port}/api/event/1 to check but you can always use POSTMAN/Insomnia or PostWoman to make requests or
      any that works for you.
